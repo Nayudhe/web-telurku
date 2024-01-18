@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::get('/', [MainController::class, 'index'])->name('Home');
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('About');
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('Contact');
+Route::get('/products', [MainController::class, 'allProducts'])->name('Product.All');
+Route::get('/product/{product}', [MainController::class, 'detailProduct'])->name('Product.Detail');
+Route::get('/checkout', function () {
+    return view('pages.checkout');
+})->name('Checkout');
+Route::get('/orders', function () {
+    return view('pages.myOrder');
+})->name('Orders');
+Route::get('/my-profile', function () {
+    return view('pages.myProfile');
+})->name('Profile');
+Route::get('/cart', function () {
+    return view('pages.cart');
+})->name('Cart');
 // ADMIN DASHBOARD
 Route::prefix('/admin-dashboard')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('Admin.Dashboard');
