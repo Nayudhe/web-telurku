@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->integer('total_price');
+            $table->text('address');
             $table->string('status');
             $table->timestamps();
         });

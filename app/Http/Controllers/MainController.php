@@ -22,5 +22,6 @@ class MainController extends Controller
 
     public function detailProduct(Product $product)
     {
+        return view('pages.detailProduct')->with('product', $product);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -10,19 +11,21 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register web routes for your application. These 
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
 
+// AUTH
+Route::get('/login', [AuthController::class, 'loginView'])->name('Auth.LoginView')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('Auth.Login')->middleware('guest');
+Route::get('/register', [AuthController::class, 'registerView'])->name('Auth.RegisterView')->middleware('guest');
+Route::post('/register', [AuthController::class, 'register'])->name('Auth.Register')->middleware('guest');
+Route::post('/logout', [AuthController::class, 'logout'])->name('Auth.Logout')->middleware('auth');
+
+
 Route::get('/', [MainController::class, 'index'])->name('Home');
-Route::get('/about', function () {
-    return view('pages.about');
-})->name('About');
-Route::get('/contact', function () {
-    return view('pages.contact');
-})->name('Contact');
 Route::get('/products', [MainController::class, 'allProducts'])->name('Product.All');
 Route::get('/product/{product}', [MainController::class, 'detailProduct'])->name('Product.Detail');
 Route::get('/checkout', function () {
@@ -37,6 +40,16 @@ Route::get('/my-profile', function () {
 Route::get('/cart', function () {
     return view('pages.cart');
 })->name('Cart');
+
+
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('About');
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('Contact');
+
+
 // ADMIN DASHBOARD
 Route::prefix('/admin-dashboard')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('Admin.Dashboard');
