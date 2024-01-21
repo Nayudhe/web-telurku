@@ -14,8 +14,12 @@
                     </h5>
                 </div>
                 <div>
-                    <p class="mb-2">Jumlah barang</p>
-                    <h5>2 item (5 kg)</h5>
+                    <p class="mb-2">Produk</p>
+                    <ul class="m-0">
+                        @foreach ($order->order_items as $item)
+                            <li>{{ $item->product->name }} ({{ $item->quantity }} kg)</li>
+                        @endforeach
+                    </ul>
                 </div>
                 <div>
                     <p class="mb-2">Status</p>

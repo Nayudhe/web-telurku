@@ -63,8 +63,11 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="me-2 d-flex justify-content-end">
-                    <h5>Total: Rp {{ number_format($cart_items->sum('total_price'), 0, '', '.') }}</h5>
+                <div class="me-2 d-flex flex-column align-items-end">
+                    <h5>Subtotal: Rp {{ number_format($cart_items->sum('total_price'), 0, '', '.') }}</h5>
+                    <h5>Biaya pengiriman: Rp {{ number_format(20000, 0, '', '.') }}</h5>
+                    <hr class="w-100">
+                    <h5>Total: Rp {{ number_format($cart_items->sum('total_price') + 20000, 0, '', '.') }}</h5>
                 </div>
             </div>
         </div>

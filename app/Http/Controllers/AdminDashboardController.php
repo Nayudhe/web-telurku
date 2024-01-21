@@ -23,12 +23,13 @@ class AdminDashboardController extends Controller
         $currentYear = $date->year;
         $currentMonth = $date->month;
 
-        $totalEarnings = Payment::sum('amount');
-        $monthEarnings = Payment::whereYear('created_at', $currentYear)
+        $totalEarnings = Order::where('status', 'done')->sum('total_price');
+        $monthEarnings = Order::whereYear('created_at', $currentYear)
             ->whereMonth('created_at', $currentMonth)
-            ->sum('amount');
+            ->where('status', 'done')
+            ->sum('total_price');
         $stock = Product::sum('stock');
-        $orderCount = Order::where('status', 'Waiting')->count();
+        $orderCount = Order::where('status', 'waiting')->count();
 
         $data = [
             'monthEarnings' => $monthEarnings,

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\CartItem;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,8 +80,9 @@ class OrderController extends Controller
             return redirect()->route('Cart.View')->with('error', 'Terjadi kesalahan saat checkout silakan ulangi kembali.');
         }
 
+        $shipping_cost = 20000;
         $full_address = $request->address . ", " . $request->city . ", " . $request->province . " " . $request->postal_code;
-        $total_price = $cart_items->sum('total_price');
+        $total_price = $cart_items->sum('total_price') + $shipping_cost;
 
         $order = Order::create([
             'user_id' => Auth::user()->id,
@@ -95,8 +97,15 @@ class OrderController extends Controller
                 'product_id' => $item->product->id,
                 'quantity' => $item->quantity,
             ]);
+
+            CartItem::destroy($item->id);
+
+            $product = Product::find($item->product->id);
+            $product->stock = $product->stock - $item->quantity;
+            $product->update();
         }
 
+        $request->session()->remove('cart_items');
         return redirect()->route('Orders');
     }
 

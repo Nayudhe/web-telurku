@@ -5,7 +5,7 @@
         <h1 class="mb-5">Tentang Kami</h1>
 
         <div class="card shadow p-4">
-            <p class="mb-0" style="font-size: 18px; text-align: justify">Andri Jaya Telor merupakan usaha dagang (UD)
+            <p class="mb-0" style="font-size: 18px; text-align: justify">Andri Jaya Telur merupakan usaha dagang (UD)
                 merupakan
                 peternakan telur ayam negeri yang telah berkomitmen untuk memberikan produk berkualitas tinggi kepada
                 pelanggan kami sejak awal berdiri. Kami

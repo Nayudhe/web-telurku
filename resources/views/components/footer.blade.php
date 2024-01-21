@@ -23,6 +23,6 @@
 
     </div>
     <div class="container-fluid px-4 py-2 text-center text-light" style="background-color: #3772df">
-        Copyright 2024 Telurku
+        Copyright © Telurku 2024
     </div>
 </footer>

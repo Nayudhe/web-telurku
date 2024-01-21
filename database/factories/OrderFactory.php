@@ -16,9 +16,9 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'total_price' => $this->faker->numerify('##000'),
+            'total_price' => $this->faker->numberBetween(1, 9) . $this->faker->numerify('#000'),
             'address' => $this->faker->address(),
-            'status' => $this->faker->randomElement(['waiting', 'accepted', 'done']),
+            'status' => $this->faker->randomElement(['waiting', 'accepted', 'canceled', 'done']),
         ];
     }
 }
