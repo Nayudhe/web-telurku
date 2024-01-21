@@ -2,9 +2,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #508bfc">
         <div class="container-fluid px-4 py-3">
             <a class="navbar-brand fw-bold h1 mb-0" style="letter-spacing: 1px; text-transform: uppercase"
-                href="#">Telurku</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                href="#"><i class="bi bi-egg-fill"></i> Telurku</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -31,7 +32,8 @@
                     <div>
                         <ul class="navbar-nav mb-lg-0">
                             <li class="nav-item me-2">
-                                <a class="nav-link text-light" href="{{ route('Cart') }}"><i class="bi bi-cart h3"></i></a>
+                                <a class="nav-link text-light" href="{{ route('Cart.View') }}"><i
+                                        class="bi bi-cart h3"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-light" href="#" role="button" data-bs-toggle="dropdown"

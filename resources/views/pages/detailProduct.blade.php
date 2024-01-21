@@ -18,12 +18,31 @@
 
             <hr>
             <p>Masukkan ke keranjang:</p>
-            <div class="input-group mb-3" style="max-width: 200px">
-                <input type="number" min="1" class="form-control" placeholder="Jumlah" aria-label="Jumlah"
-                    aria-describedby="basic-addon2">
-                <span class="input-group-text" id="basic-addon2">kg</span>
-            </div>
-            <button class="btn btn-success" style="padding-bottom: 11px"><i class="bi bi-cart-plus fs-5"></i></button>
+            <form action="{{ route('Cart.Add') }}" method="POST">
+                @csrf
+                <div class="input-group mb-3" style="max-width: 200px">
+                    <input name="quantity" type="number" min="1" max="{{ $product->stock }}" class="form-control"
+                        placeholder="Jumlah" aria-label="Jumlah" aria-describedby="basic-addon2">
+                    <span class="input-group-text" id="basic-addon2">kg</span>
+                </div>
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <button type="submit" class="btn btn-success" style="padding-bottom: 11px"><i
+                        class="bi bi-cart-plus fs-5"></i></button>
+            </form>
+            @if ($errors->any())
+                <div class="alert alert-danger mt-4">
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    @if ($errors->has('quantity'))
+                        Mohon masukkan jumlah barang terlebih dahulu
+                    @else
+                        Mohon maaf terjadi kesalahan, silakan ulangi kembali.
+                    @endif
+                </div>
+            @endif
+            @if (\Session::has('success'))
+                <div class="alert alert-success mt-4"> {{ \Session::get('success') }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection

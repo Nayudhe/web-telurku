@@ -52,6 +52,38 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
+        Pesanan
+    </div>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {{ Route::current()->getName() == 'Admin.Orders' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('Admin.Orders') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Semua Pesanan</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+            aria-expanded="true" aria-controls="collapseOrders">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pesanan Masuk</span>
+        </a>
+        <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Status:</h6>
+                <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'waiting') }}">Menunggu</a>
+                <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'accepted') }}">Diproses</a>
+                <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'done') }}">Selesai</a>
+                <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'canceled') }}">Dibatalkan</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
         User
     </div>
 
@@ -81,13 +113,6 @@
                 <a class="collapse-item" href="blank.html">Blank Page</a>
             </div>
         </div>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ asset('dashboard/charts.html') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
     </li>
 
     <!-- Divider -->

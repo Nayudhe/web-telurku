@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -15,7 +19,26 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::paginate(10);
+        return view('pages.admin.orderList')->with('orders', $orders);
+    }
+
+    public function byStatus($status)
+    {
+        if ($status != 'waiting' && $status != 'accepted' && $status != 'done' && $status != 'canceled') {
+            return redirect()->back();
+        }
+        $orders = Order::where('status', $status)->paginate(10);
+        return view('pages.admin.orderListByStatus')
+            ->with('orders', $orders)
+            ->with('status', $status);
+    }
+
+    public function changeOrderStatus(Order $order, $status)
+    {
+        $order->status = $status;
+        $order->update();
+        return redirect()->back();
     }
 
     /**
@@ -23,9 +46,15 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if ($request->session()->exists('cart_items')) {
+            $cart_items = CartItem::whereIn('id', $request->session()->get('cart_items'))->get();
+
+            return view('pages.checkout')->with('cart_items', $cart_items);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -36,7 +65,39 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $this->validate($request, [
+            'province' => ['required'],
+            'city' => ['required'],
+            'postal_code' => ['required'],
+            'address' => ['required'],
+        ]);
+
+        $cart_items = [];
+        if ($request->session()->exists('cart_items')) {
+            $cart_items = CartItem::whereIn('id', $request->session()->get('cart_items'))->get();
+        } else {
+            return redirect()->route('Cart.View')->with('error', 'Terjadi kesalahan saat checkout silakan ulangi kembali.');
+        }
+
+        $full_address = $request->address . ", " . $request->city . ", " . $request->province . " " . $request->postal_code;
+        $total_price = $cart_items->sum('total_price');
+
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'total_price' => $total_price,
+            'address' => $full_address,
+            'status' => "waiting",
+        ]);
+
+        foreach ($cart_items as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item->product->id,
+                'quantity' => $item->quantity,
+            ]);
+        }
+
+        return redirect()->route('Orders');
     }
 
     /**
@@ -82,5 +143,12 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function myOrder()
+    {
+        $orders = Order::where('user_id', Auth::user()->id)->get();
+
+        return view('pages.myOrder')->with('orders', $orders);
     }
 }

@@ -30,10 +30,10 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ ($users->currentpage() - 1) * $users->perpage() + $loop->index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d F Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') }}</td>
                                 <td>
 
                                     <button type="button" class="btnDelete btn btn-danger" data-name="{{ $user->name }}"
@@ -44,6 +44,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-4 d-flex justify-content-end">
+                    {{ $users->links() }}
+                </div>
             </div>
         </div>
     </div>

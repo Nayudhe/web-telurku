@@ -34,26 +34,32 @@
                                         <div class="text-center mb-4 mt-4">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                         </div>
-                                        <form class="user">
+                                        <form class="user" method="POST" action="{{ route('Auth.Login') }}">
+                                            @csrf
                                             <div class="form-group">
-                                                <input type="email" class="form-control form-control-user"
-                                                    id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email">
+                                                <input required type="email" name="email"
+                                                    class="form-control form-control-user @if ($errors->has('email')) is-invalid @endif"
+                                                    value="{{ old('email') }}" id="inputEmail" aria-describedby="emailHelp"
+                                                    placeholder="Email">
+                                                @if ($errors->has('email'))
+                                                    <div class="text-start px-4 mt-2 text-danger fw-semibold">
+                                                        {{ $errors->first('email') }}
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control form-control-user"
-                                                    id="exampleInputPassword" placeholder="Password">
+                                                <input required type="password" name="password"
+                                                    class="form-control form-control-user @if ($errors->has('password')) is-invalid @endif"
+                                                    value="{{ old('password') }}" id="inputPass" placeholder="Password">
+                                                @if ($errors->has('password'))
+                                                    <div class="text-start px-4 mt-2 text-danger fw-semibold">
+                                                        {{ $errors->first('password') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox small">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                    <label class="custom-control-label" for="customCheck">Remember
-                                                        Me</label>
-                                                </div>
-                                            </div>
-                                            <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                            <button type="submit" class="mt-4 btn btn-primary btn-user btn-block">
                                                 Login
-                                            </a>
-
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

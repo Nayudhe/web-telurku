@@ -30,7 +30,7 @@
                     <tbody>
                         @foreach ($products as $product)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ ($products->currentpage() - 1) * $products->perpage() + $loop->index + 1 }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>Rp {{ number_format($product->price, 0, '', '.') }} / kg</td>
                                 <td>{{ $product->stock }} kg</td>
@@ -56,6 +56,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-4 d-flex justify-content-end">
+                    {{ $products->links() }}
+                </div>
             </div>
         </div>
     </div>

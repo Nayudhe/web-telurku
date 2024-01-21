@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -23,5 +24,11 @@ class MainController extends Controller
     public function detailProduct(Product $product)
     {
         return view('pages.detailProduct')->with('product', $product);
+    }
+
+    public function myProfile()
+    {
+        $user = Auth::user();
+        return view('pages.myProfile')->with('user', $user);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
         $this->call([
+            AdminSeeder::class,
             CartItemSeeder::class,
             OrderItemSeeder::class,
-            PaymentSeeder::class,
+        ]);
+        User::create([
+            'name' => "Nay Ana",
+            'email' => "test@test.com",
+            'email_verified_at' => now(),
+            'password' => '$2a$10$awhGq0F1H80caSzTfxzYuOktnvxeo5IRBbDWyeEHYCuIh5niRUwJy', // password
+            'role' => 'user',
+            'remember_token' => Str::random(10),
         ]);
     }
 }

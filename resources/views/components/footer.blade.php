@@ -1,10 +1,11 @@
 <footer class="mt-auto">
     <div class="container-fluid p-4 text-light" style="background-color: #508bfc">
         <div class="row justify-content-center text-center text-lg-start align-items-center">
-            <div class="col-12 col-lg-3">
+            <div class="col-12 col-lg-3 pe-md-5">
 
                 <h2><i class="bi bi-egg-fill"></i> Telurku</h2>
-                <p class="mb-4 mb-lg-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit?</p>
+                <p class="mb-4 mb-lg-0">Kami berkomitmen untuk terus
+                    meningkatkan proses produksi kami demi memberikan produk terbaik.</p>
             </div>
             <div class="col-lg-2">
                 <h5>Alamat</h5>

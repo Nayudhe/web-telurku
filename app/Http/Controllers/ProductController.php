@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
 
         return view('pages.admin.productList')->with('products', $products);
     }
@@ -106,9 +106,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
-
-            $product->delete();
-            return redirect()->route('Admin.Products');
+            dump($product->id);
+            // $product->delete();
+            // return redirect()->route('Admin.Products');
         } catch (QueryException $exception) {
             return redirect()->route('Admin.Products')->with('error', 'Gagal menghapus data: ' . $exception);
         }
