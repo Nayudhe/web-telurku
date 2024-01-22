@@ -11,7 +11,8 @@
                 <div class="col-6 col-md-4 col-lg-3">
                     <a href="{{ route('Product.Detail', $product->id) }}" style="text-decoration: none">
                         <div class="card shadow mb-4">
-                            <img src="{{ asset('img/egg-default.jpg') }}" class="card-img-top" alt="...">
+                            <img style="height: 200px; object-fit: cover; object-position: center"
+                                src="{{ asset('product_images/' . $product->image) }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title mb-0">
                                     {{ $product->name }}

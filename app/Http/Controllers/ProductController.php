@@ -39,13 +39,24 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        $this->validate($request, [
+            'name' => ['required'],
+            'price' => ['required'],
+            'description' => ['required'],
+            'stock' => ['required'],
+            'image' => ['required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+        ]);
+
         try {
+            $imageName =  strtolower(str_replace(' ', '-', $request->name)) . '_' . time() . '.' . $request->image->extension();
+            $request->image->move(public_path('product_images'), $imageName);
+
             $product = new Product;
             $product->name = $request->name;
             $product->price = $request->price;
             $product->description = $request->description;
             $product->stock = $request->stock;
-            $product->image = "default.png";
+            $product->image = $imageName;
             $product->save();
             return redirect()->route('Admin.CreateProduct')->with('status', 'Produk berhasil ditambahkan');
         } catch (QueryException $exception) {
