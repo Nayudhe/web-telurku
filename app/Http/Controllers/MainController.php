@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -30,5 +32,19 @@ class MainController extends Controller
     {
         $user = Auth::user();
         return view('pages.myProfile')->with('user', $user);
+    }
+
+    public function testquery()
+    {
+        $order_date = Order::select(DB::raw('YEAR(created_at) year, MONTH(created_at) month, MONTHNAME(created_at) month_name'))
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
+
+        dump($order_date->all());
+        foreach ($order_date as $item) {
+            dump($item->year . " " .  $item->month_name);
+        }
     }
 }

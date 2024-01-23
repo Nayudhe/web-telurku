@@ -4,7 +4,7 @@
     <h3 class="mb-4">Detail Produk</h3>
     <div class="row">
         <div class="col-12 col-md-6 col-lg-5 mb-4 mb-md-0" style="height: 450px;">
-            <img src="{{ asset('img/egg-default.jpg') }}" alt="..."
+            <img src="{{ asset('product_images/' . $product->image) }}" alt="..."
                 style="height: 100%; width: 100%; object-fit: contain; background-color: rgb(223, 223, 223)">
         </div>
 

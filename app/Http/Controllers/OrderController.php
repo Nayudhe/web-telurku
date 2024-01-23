@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\CartItem;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Carbon\Carbon;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -159,5 +161,24 @@ class OrderController extends Controller
         $orders = Order::where('user_id', Auth::user()->id)->get();
 
         return view('pages.myOrder')->with('orders', $orders);
+    }
+
+    public function printReport(Request $request)
+    {
+        $this->validate($request, [
+            'monthyear' => 'required'
+        ]);
+
+        $month = explode(',', $request->monthyear)[0];
+        $year = explode(',', $request->monthyear)[1];
+
+        $orders = Order::where('status', 'done')
+            ->whereRaw('YEAR(created_at) = ' . $year)
+            ->whereRaw('MONTH(created_at) = ' . $month)
+            ->get();
+
+        $date = Carbon::createFromFormat('mY', sprintf("%02d", $month) . $year)->translatedFormat('F Y');
+        $pdf = PDF::loadView('pages.admin.generateReport', ['orders' => $orders, 'date' => $date]);
+        return $pdf->stream('Laporan-Pendapatan-Telurku.pdf');
     }
 }

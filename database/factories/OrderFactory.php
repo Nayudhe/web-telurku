@@ -19,6 +19,7 @@ class OrderFactory extends Factory
             'total_price' => $this->faker->numberBetween(1, 9) . $this->faker->numerify('#000'),
             'address' => $this->faker->address(),
             'status' => $this->faker->randomElement(['waiting', 'accepted', 'canceled', 'done']),
+            'created_at' => $this->faker->dateTimeBetween('-4 months', 'now'),
         ];
     }
 }

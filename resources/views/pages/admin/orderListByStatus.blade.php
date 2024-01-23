@@ -56,7 +56,6 @@
                                             <li>{{ $item->product->name }} ({{ $item->quantity }} kg)</li>
                                         @endforeach
                                     </ul>
-
                                 </td>
                                 <td>Rp {{ number_format($order->total_price, 0, '', '.') }}</td>
                                 <td>{{ Carbon\Carbon::parse($order->created_at)->translatedFormat('d F Y h:m') }}</td>

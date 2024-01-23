@@ -9,6 +9,11 @@
             {{ session('error') }}
         </div>
     @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminDashboardController extends Controller
 {
@@ -31,8 +31,15 @@ class AdminDashboardController extends Controller
         $stock = Product::sum('stock');
         $orderCount = Order::where('status', 'waiting')->count();
 
+        $monthlyOrder = Order::select(DB::raw('YEAR(created_at) year, MONTH(created_at) month, SUM(total_price) earnings'))
+            ->where('status', 'done')
+            ->groupBy('year')->groupBy('month')
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
+            ->get();
+
         $data = [
             'monthEarnings' => $monthEarnings,
+            'monthlyOrder' => $monthlyOrder,
             'totalEarnings' => $totalEarnings,
             'stock' => $stock,
             'orderCount' => $orderCount

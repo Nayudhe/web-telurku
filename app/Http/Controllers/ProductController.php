@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -95,7 +96,20 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->validate($request, [
+            'name' => ['required'],
+            'price' => ['required'],
+            'description' => ['required'],
+            'stock' => ['required'],
+        ]);
+
         try {
+            if ($request->hasFile('image')) {
+                $imageName =  strtolower(str_replace(' ', '-', $request->name)) . '_' . time() . '.' . $request->image->extension();
+                $request->image->move(public_path('product_images'), $imageName);
+                $product->image = $imageName;
+            }
+
             $product->name = $request->name;
             $product->price = $request->price;
             $product->description = $request->description;
@@ -117,9 +131,14 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
-            dump($product->id);
-            // $product->delete();
-            // return redirect()->route('Admin.Products');
+            if ($product->image != "default.png") {
+                $image_path = public_path('product_images/' . $product->image);
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+            }
+            $product->delete();
+            return redirect()->back()->with('status', 'Data berhasil terhapus');
         } catch (QueryException $exception) {
             return redirect()->route('Admin.Products')->with('error', 'Gagal menghapus data: ' . $exception);
         }
