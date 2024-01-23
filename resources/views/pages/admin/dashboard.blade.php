@@ -132,9 +132,11 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
+                    @if ($errors->has('monthyear'))
+                        <div class="text-start ms-2 mt-2 text-danger fw-semibold">
+                            <div class="alert alert-danger">
+                                Tidak ada bulan yang dipilih!
+                            </div>
                         </div>
                     @endif
                     <form action="{{ route('Admin.PrintReport') }}" method="POST">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -61,5 +62,11 @@ class AdminDashboardController extends Controller
         } catch (QueryException $exception) {
             return redirect()->back()->with('error', 'Gagal menghapus data: ' . $exception);
         }
+    }
+
+    public function messageList()
+    {
+        $messages = Message::orderBy('created_at', 'desc')->paginate(5);
+        return view('pages.admin.messageList')->with('messages', $messages);
     }
 }

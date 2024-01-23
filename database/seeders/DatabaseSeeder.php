@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CartItemSeeder::class,
             OrderItemSeeder::class,
         ]);
+        Message::factory(10)->create();
         User::create([
             'name' => "Nay Ana",
             'email' => "test@test.com",

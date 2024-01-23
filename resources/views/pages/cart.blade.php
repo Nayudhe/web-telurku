@@ -35,7 +35,8 @@
                                 <div class="col-6 col-md-5">
                                     <div class="d-flex gap-3">
                                         <div style="height: 90px; width: 90px; flex-shrink: 0">
-                                            <img src="{{ asset('img/egg-default.jpg') }}" alt="" class="w-100 h-100"
+                                            <img src="{{ asset('product_images/' . $item->product->image) }}"
+                                                alt="" class="w-100 h-100"
                                                 style="object-fit: contain; background-color: rgb(223, 223, 223)">
                                         </div>
                                         <div>

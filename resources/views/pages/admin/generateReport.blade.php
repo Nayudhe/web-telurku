@@ -4,8 +4,9 @@
 <table style="width: 100%; margin-top: 50px" border="1" cellspacing="0" cellpadding="5">
     <tr>
         <th>No</th>
-        <th>Nama Pembeli</th>
+        <th>Pembeli</th>
         <th>Barang</th>
+        <th>Alamat</th>
         <th>Tanggal</th>
         <th>Jumlah</th>
     </tr>
@@ -14,12 +15,13 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $item->user->name }}</td>
             <td>
-                <ul>
-                    @foreach ($item->order_items as $product)
-                        <li>{{ $product->product->name }} ({{ $product->quantity }} kg)</li>
-                    @endforeach
-                </ul>
+
+                @foreach ($item->order_items as $product)
+                    <p>- {{ $product->product->name }} ({{ $product->quantity }} kg)</p>
+                @endforeach
+
             </td>
+            <td style="max-width: 120px">{{ $item->address }}</td>
             <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
             <td style="text-align: right">Rp {{ number_format($item->total_price, 0, '', '.') }}</td>
         </tr>

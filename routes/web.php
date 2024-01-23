@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', [MainController::class, 'testquery']);
 Route::get('/', [MainController::class, 'index'])->name('Home');
 Route::get('/products', [MainController::class, 'allProducts'])->name('Product.All');
 Route::get('/product/{product}', [MainController::class, 'detailProduct'])->name('Product.Detail');
@@ -29,6 +28,7 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('Contact');
+Route::post('/send-message', [MainController::class, 'sendMessage'])->name('SendMessage');
 
 // GUEST
 Route::group(['middleware' => 'guest'], function () {
@@ -76,6 +76,7 @@ Route::group(['prefix' => 'admin-dashboard', 'middleware' => 'isAdmin'], functio
     Route::post('/order/update/{order}/{status}',  [OrderController::class, 'changeOrderStatus'])->name('Admin.StatusOrder');
     Route::post('/orders/print', [OrderController::class, 'printReport'])->name('Admin.PrintReport');
 
+    Route::get('/messages',  [AdminDashboardController::class, 'messageList'])->name('Admin.Messages');
     Route::get('/users',  [AdminDashboardController::class, 'userList'])->name('Admin.Users');
     Route::delete('/user/{user}',  [AdminDashboardController::class, 'deleteUser'])->name('Admin.DeleteUser');
 });

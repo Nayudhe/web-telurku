@@ -87,7 +87,7 @@
         User
     </div>
 
-    <!-- Nav Item - Tables -->
+    <!-- Nav Item -->
     <li class="nav-item {{ Route::current()->getName() == 'Admin.Users' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('Admin.Users') }}">
             <i class="fas fa-fw fa-table"></i>
@@ -96,6 +96,16 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Pesan
+    </div>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {{ Route::current()->getName() == 'Admin.Messages' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('Admin.Messages') }}">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Daftar Pesan</span></a>
+    </li>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

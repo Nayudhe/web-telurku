@@ -104,23 +104,49 @@
 
         <div class="mt-4 pb-5 row w-100 justify-content-center">
             <div class="col-12 col-md-8">
-                <form>
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                <form action="{{ route('SendMessage') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="inputContactName" class="form-label">Nama anda</label>
-                        <input type="email" class="form-control form-control-lg shadow-sm" id="inputContactName"
-                            placeholder="Nama anda">
+                        <input name="name" type="text" class="form-control form-control-lg shadow-sm"
+                            id="inputContactName" placeholder="Nama anda">
+                        @if ($errors->has('name'))
+                            <div class="text-start ms-2 mt-2 text-danger fw-semibold">
+                                {{ $errors->first('name') }}
+                            </div>
+                        @endif
                     </div>
                     <div class="mb-3">
                         <label for="inputContactEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control form-control-lg shadow-sm" id="inputContactEmail"
-                            placeholder="nama@email.com">
+                        <input name="email" type="email" class="form-control form-control-lg shadow-sm"
+                            id="inputContactEmail" placeholder="nama@email.com">
+                        @if ($errors->has('email'))
+                            <div class="text-start ms-2 mt-2 text-danger fw-semibold">
+                                {{ $errors->first('email') }}
+                            </div>
+                        @endif
                     </div>
                     <div class="mb-3">
                         <label for="inputContactMessage" class="form-label">Pesan</label>
-                        <textarea class="form-control form-control-lg shadow-sm" id="inputContactMessage" rows="7"></textarea>
+                        <textarea name="message" class="form-control form-control-lg shadow-sm" id="inputContactMessage" rows="7"></textarea>
+                        @if ($errors->has('message'))
+                            <div class="text-start ms-2 mt-2 text-danger fw-semibold">
+                                {{ $errors->first('message') }}
+                            </div>
+                        @endif
                     </div>
                     <div class="d-flex">
-                        <button class="ms-auto btn btn-primary">Kirim</button>
+                        <button type="submit" class="ms-auto btn btn-primary">Kirim</button>
                     </div>
                 </form>
             </div>
