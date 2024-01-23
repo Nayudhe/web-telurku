@@ -57,9 +57,9 @@ class AdminDashboardController extends Controller
     {
         try {
             $user->delete();
-            return redirect()->route('Admin.Users');
+            return redirect()->back()->with('status', 'Berhasil menghapus data user');;
         } catch (QueryException $exception) {
-            return redirect()->route('Admin.Users')->with('error', 'Gagal menghapus data: ' . $exception);
+            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $exception);
         }
     }
 }
