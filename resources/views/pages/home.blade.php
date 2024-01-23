@@ -19,13 +19,13 @@
             </div>
             <div class="carousel-item">
                 <div style="height: 450px; width: 100%">
-                    <img src="{{ asset('img/egg-default.jpg') }}" class="d-block h-100 w-100" alt="..."
+                    <img src="{{ asset('img/egg2.jpg') }}" class="d-block h-100 w-100" alt="..."
                         style="object-fit: cover; object-position: center">
                 </div>
             </div>
             <div class="carousel-item">
                 <div style="height: 450px; width: 100%">
-                    <img src="{{ asset('img/egg-default.jpg') }}" class="d-block h-100 w-100" alt="..."
+                    <img src="{{ asset('img/egg3.jpg') }}" class="d-block h-100 w-100" alt="..."
                         style="object-fit: cover; object-position: center">
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="col-12 col-md-5 mb-4 mb-md-0">
                 <div style="height: 300px">
                     <img class="h-100 w-100" style="object-fit: cover; object-position: center"
-                        src="{{ asset('img/egg-default.jpg') }}" alt="...">
+                        src="{{ asset('img/egg4.jpg') }}" alt="...">
                 </div>
             </div>
             <div class="col">

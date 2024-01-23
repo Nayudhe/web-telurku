@@ -19,7 +19,7 @@ class MainController extends Controller
 
     public function allProducts()
     {
-        $products = Product::paginate(4);
+        $products = Product::paginate(12);
         return view('pages.products')->with('products', $products);
     }
 
