@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="col">
-                <p style="font-size: 18px; text-align: justify">Andri Jaya Telor merupakan usaha dagang (UD) merupakan
+                <p style="font-size: 18px; text-align: justify">Andri Jaya Telur merupakan usaha dagang (UD) merupakan
                     peternakan telur ayam negeri yang telah berkomitmen untuk memberikan produk berkualitas tinggi kepada
                     pelanggan kami sejak awal berdiri. Kami
                     menghargai kepercayaan pelanggan kami dan berkomitmen untuk terus meningkatkan proses produksi kami demi
@@ -84,7 +84,7 @@
                             </div>
                             <div class="card-footer">
                                 <p class="text-success mb-0 fw-semibold">Rp {{ number_format($product->price, 0, '', '.') }}
-                                    / kg
+                                    / krat
                                 </p>
                             </div>
                         </div>

@@ -26,8 +26,8 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama Produk</th>
-                            <th>Harga (per kg)</th>
-                            <th>Stok (kg)</th>
+                            <th>Harga (per krat)</th>
+                            <th>Stok (krat)</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -37,8 +37,8 @@
                             <tr>
                                 <td>{{ ($products->currentpage() - 1) * $products->perpage() + $loop->index + 1 }}</td>
                                 <td>{{ $product->name }}</td>
-                                <td>Rp {{ number_format($product->price, 0, '', '.') }} / kg</td>
-                                <td>{{ $product->stock }} kg</td>
+                                <td>Rp {{ number_format($product->price, 0, '', '.') }} / krat</td>
+                                <td>{{ $product->stock }} krat</td>
                                 <td>
                                     <a class="btn btn-info" href="{{ route('Admin.ShowProduct', $product->id) }}">Detail</a>
                                     <a class="btn btn-warning" href="{{ route('Admin.EditProduct', $product->id) }}"><i

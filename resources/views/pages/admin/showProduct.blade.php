@@ -19,10 +19,10 @@
                     <h4 class="text-primary"><b>{{ $product->name }}</b></h4>
                     <hr>
                     <p style="font-weight: bold">Harga Produk</p>
-                    <h4 class="text-primary">Rp <b>{{ number_format($product->price, 0, '', '.') }}</b> / kg</h4>
+                    <h4 class="text-primary">Rp <b>{{ number_format($product->price, 0, '', '.') }}</b> / krat</h4>
                     <hr>
                     <p style="font-weight: bold">Stok</p>
-                    <h4 class="text-primary"><b>{{ $product->stock }}</b> kg</h4>
+                    <h4 class="text-primary"><b>{{ $product->stock }}</b> krat</h4>
                     <hr>
                     <p style="font-weight: bold">Deskripsi Produk</p>
                     <p class="text-black">{{ $product->description }}</p>

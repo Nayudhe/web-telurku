@@ -24,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <label for="priceInput">Harga Produk (per kg)</label>
+                <label for="priceInput">Harga Produk (per krat)</label>
                 <input type="number" id="priceInput" name="price" value="{{ $product->price }}" class="form-control">
                 @if ($errors->has('price'))
                     <div class="text-start ms-2 mt-2 text-danger fw-semibold">
@@ -44,7 +44,7 @@
             </div>
 
             <div class="form-group">
-                <label for="stockInput">Stok (kg)</label>
+                <label for="stockInput">Stok (krat)</label>
                 <input type="number" id="stockInput" name="stock" value="{{ $product->stock }}" class="form-control">
                 @if ($errors->has('stock'))
                     <div class="text-start ms-2 mt-2 text-danger fw-semibold">

@@ -35,13 +35,13 @@
                                 <div class="col-6 col-md-5">
                                     <div class="d-flex gap-3">
                                         <div style="height: 90px; width: 90px; flex-shrink: 0">
-                                            <img src="{{ asset('product_images/' . $item->product->image) }}"
-                                                alt="" class="w-100 h-100"
+                                            <img src="{{ asset('product_images/' . $item->product->image) }}" alt=""
+                                                class="w-100 h-100"
                                                 style="object-fit: contain; background-color: rgb(223, 223, 223)">
                                         </div>
                                         <div>
                                             <h5 class="mb-2">{{ $item->product->name }}</h5>
-                                            <p class="badge bg-secondary mb-0">{{ $item->quantity }} kg</p>
+                                            <p class="badge bg-secondary mb-0">{{ $item->quantity }} krat</p>
                                         </div>
                                     </div>
                                 </div>

@@ -83,6 +83,10 @@ class OrderController extends Controller
         }
 
         $shipping_cost = 20000;
+        if ($cart_items->sum("quantity") >= 20) {
+            $shipping_cost = 5000;
+        }
+
         $full_address = $request->address . ", " . $request->city . ", " . $request->province . " " . $request->postal_code;
         $total_price = $cart_items->sum('total_price') + $shipping_cost;
 

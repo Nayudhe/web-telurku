@@ -56,7 +56,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Stok Telur Keseluruhan
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['stock'] }} kg</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['stock'] }} krat</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-egg fa-2x text-gray-300"></i>
@@ -143,7 +143,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="">Pilih Bulan</label>
-                            <select name="monthyear" class="form-control" aria-label="Default select example">
+                            <select name="monthyear" class="form-control">
                                 @foreach ($data['monthlyOrder'] as $item)
                                     <option value="{{ $item->month }},{{ $item->year }}">
                                         {{ Carbon\Carbon::createFromFormat('m', $item->month)->translatedFormat('F') }}

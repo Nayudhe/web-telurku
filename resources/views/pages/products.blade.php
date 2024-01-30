@@ -20,7 +20,7 @@
                             </div>
                             <div class="card-footer">
                                 <p class="text-success mb-0 fw-semibold">Rp {{ number_format($product->price, 0, '', '.') }}
-                                    / kg
+                                    / krat
                                 </p>
                             </div>
                         </div>

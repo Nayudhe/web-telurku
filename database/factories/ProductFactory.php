@@ -15,7 +15,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => "Telur " . $this->faker->word(),
-            'price' => $this->faker->numberBetween(2, 6) . $this->faker->numerify('#000'),
+            'price' => $this->faker->numberBetween(4, 9) . $this->faker->numerify('#000'),
             'description' => $this->faker->sentence(10),
             'stock' => $this->faker->numberBetween(10, 200),
             'image' => 'default.jpg',

@@ -53,7 +53,7 @@
                                 <td>
                                     <ul>
                                         @foreach ($order->order_items as $item)
-                                            <li>{{ $item->product->name }} ({{ $item->quantity }} kg)</li>
+                                            <li>{{ $item->product->name }} ({{ $item->quantity }} krat)</li>
                                         @endforeach
                                     </ul>
                                 </td>

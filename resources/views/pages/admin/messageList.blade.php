@@ -15,9 +15,11 @@
                 </div>
             </div>
             <div class="card-body">
-                <p>
+                <p style="color: black">
                     {{ $message->message }}
                 </p>
+                {{-- <a target="_blank" class="btn btn-primary"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to={{ $message->sender_email }}">Balas</a> --}}
             </div>
         </div>
     @endforeach
