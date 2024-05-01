@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/checkout', [OrderController::class, 'create'])->name('Checkout.View');
     Route::post('/checkout/order', [OrderController::class, 'store'])->name('Checkout.Order');
+    Route::post('/checkout/payment/{order}', [OrderController::class, 'payment'])->name('Checkout.Payment');
+    Route::post('/checkout/status/{order}/{order_status}/{payment_status}', [OrderController::class, 'changePaymentStatus'])->name('Checkout.Status');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('Auth.Logout');
 });
@@ -73,6 +75,7 @@ Route::group(['prefix' => 'admin-dashboard', 'middleware' => 'isAdmin'], functio
 
     Route::get('/orders',  [OrderController::class, 'index'])->name('Admin.Orders');
     Route::get('/orders/{status}',  [OrderController::class, 'byStatus'])->name('Admin.OrdersByStatus');
+    Route::post('/order/accept/{order}',  [OrderController::class, 'acceptOrder'])->name('Admin.AcceptOrder');
     Route::post('/order/update/{order}/{status}',  [OrderController::class, 'changeOrderStatus'])->name('Admin.StatusOrder');
     Route::post('/orders/print', [OrderController::class, 'printReport'])->name('Admin.PrintReport');
 

@@ -14,6 +14,8 @@ class Order extends Model
         'total_price',
         'status',
         'address',
+        'payment_status',
+        'snap_token',
     ];
 
     public function order_items()

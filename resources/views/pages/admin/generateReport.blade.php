@@ -1,35 +1,44 @@
-<h3>
-    <center>Laporan Data Pendapatan Telurku Bulan {{ $date }}</center>
-</h3>
-<table style="width: 100%; margin-top: 50px" border="1" cellspacing="0" cellpadding="5">
+<table style="border: 1px solid black" border="1">
     <tr>
-        <th>No</th>
-        <th>Pembeli</th>
-        <th>Barang</th>
-        <th>Alamat</th>
-        <th>Tanggal</th>
-        <th>Jumlah</th>
+        <td colspan="6" align="center" height="40">
+            <h3>
+                Laporan Data Pendapatan Andri Jaya Telor Bulan {{ $date }}
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <th width="5" align="center" style="border: 1px solid black">No.</th>
+        <th width="25" align="center" style="border: 1px solid black">Pembeli</th>
+        <th width="40" align="center" style="border: 1px solid black">Barang</th>
+        <th width="40" align="center" style="border: 1px solid black">Alamat</th>
+        <th width="25" align="center" style="border: 1px solid black">Tanggal</th>
+        <th width="20" align="center" style="border: 1px solid black">Jumlah</th>
     </tr>
     @foreach ($orders as $item)
         <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $item->user->name }}</td>
-            <td>
-
+            <td style="border: 1px solid black" valign="center" align="center">{{ $loop->iteration }}</td>
+            <td style="border: 1px solid black" valign="center">{{ $item->user->name }}</td>
+            <td style="border: 1px solid black" valign="center">
                 @foreach ($item->order_items as $product)
-                    <p>- {{ $product->product->name }} ({{ $product->quantity }} krat)</p>
+                    <p>> {{ $product->product->name }} ({{ $product->quantity }} krat)</p>
                 @endforeach
 
             </td>
-            <td style="max-width: 120px">{{ $item->address }}</td>
-            <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
-            <td style="text-align: right">Rp {{ number_format($item->total_price, 0, '', '.') }}</td>
+            <td style="border: 1px solid black" valign="center">{{ $item->address }}</td>
+            <td style="border: 1px solid black" valign="center" align="center">
+                {{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}
+            </td>
+            <td style="border: 1px solid black" valign="center" align="right" data-format="Rp #,##0">
+                {{ $item->total_price }}
+            </td>
         </tr>
     @endforeach
+    <tr>
+        <td colspan="5" align="right" height="20" valign="center">
+            Total:
+        </td>
+        <td align="right" height="20" valign="center" data-format="Rp #,##0">
+            {{ $orders->sum('total_price') }}
+        </td>
+    </tr>
 </table>
-<hr style="margin-top: 20px">
-<div style="display: flex; padding-right: 5px">
-    <p style="text-align: right">
-        Total: Rp {{ number_format($orders->sum('total_price'), 0, '', '.') }}
-    </p>
-</div>

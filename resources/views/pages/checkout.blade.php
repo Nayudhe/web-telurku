@@ -1,5 +1,10 @@
 @extends('layouts.mainLayout')
 
+@section('head')
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-EPEiXdpH3egHGUKU"></script>
+@endsection
+
 @section('body')
     <div>
         <h1>Checkout</h1>

@@ -31,7 +31,7 @@
                             </h5>
                         @elseif ($order->status == 'accepted')
                             <h5 class="badge bg-primary">
-                                Diproses
+                                Menunggu pembayaran
                             </h5>
                         @elseif ($order->status == 'canceled')
                             <h5 class="badge bg-danger">
@@ -48,6 +48,28 @@
                         <p class="mb-2">Total</p>
                         <h5>Rp {{ number_format($order->total_price, 0, '', '.') }}</h5>
                     </div>
+
+                    @if ($order->status == 'accepted')
+                        <div>
+                            <p class="mb-2">Pembayaran</p>
+                            @if ($order->payment_status == '1')
+                                <form action="{{ route('Checkout.Payment', $order->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">
+                                        Bayar sekarang
+                                    </button>
+                                </form>
+                            @elseif ($order->payment_status == '2')
+                                <h5 class="badge bg-success">
+                                    Sudah dibayar
+                                </h5>
+                            @elseif ($order->payment_status == '3')
+                                <h5 class="badge bg-warning">
+                                    Pembayaran kadaluarsa
+                                </h5>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -58,5 +80,4 @@
                     class="bi bi-arrow-right"></i></a>
         </div>
     @endif
-
 @endsection

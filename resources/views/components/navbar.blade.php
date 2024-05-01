@@ -41,6 +41,9 @@
                                     <i class="bi bi-person-circle h3"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    @if (auth()->user()->is_admin())
+                                    <li><a class="dropdown-item" href="{{ route('Admin.Dashboard') }}">Admin Dashboard</a></li>
+                                    @endif
                                     <li><a class="dropdown-item" href="{{ route('Profile') }}">My Profile</a></li>
                                     <li><a class="dropdown-item" href="{{ route('Orders') }}">My Order</a></li>
                                     <li>

@@ -61,7 +61,7 @@
                                 <td>{{ Carbon\Carbon::parse($order->created_at)->translatedFormat('d F Y h:m') }}</td>
                                 <td>
                                     @if ($order->status == 'waiting')
-                                        <form action="{{ route('Admin.StatusOrder', [$order->id, 'accepted']) }}"
+                                        <form action="{{ route('Admin.AcceptOrder', [$order->id, 'accepted']) }}"
                                             method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-success mb-3 w-100">Terima</button>
@@ -72,16 +72,9 @@
                                             <button type="submit" class="btn btn-danger w-100">Batalkan</button>
                                         </form>
                                     @elseif ($order->status == 'accepted')
-                                        <form action="{{ route('Admin.StatusOrder', [$order->id, 'done']) }}"
-                                            method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success mb-3 w-100">Selesaikan</button>
-                                        </form>
-                                        <form action="{{ route('Admin.StatusOrder', [$order->id, 'canceled']) }}"
-                                            method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger w-100">Batalkan</button>
-                                        </form>
+                                        <h5 class="badge bg-success text-white">
+                                            Menunggu pembayaran
+                                        </h5>
                                     @elseif ($order->status == 'canceled')
                                         <form action="{{ route('Admin.StatusOrder', [$order->id, 'waiting']) }}"
                                             method="POST">

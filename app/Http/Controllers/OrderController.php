@@ -13,13 +13,12 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Services\Midtrans\CreateSnapTokenService;
+
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $orders = Order::paginate(10);
@@ -39,16 +38,72 @@ class OrderController extends Controller
 
     public function changeOrderStatus(Order $order, $status)
     {
-        $order->status = $status;
-        $order->update();
+        if ($order->status != 'accepted' || $order->status != 'done') {
+            $order->status = $status;
+            $order->update();
+        }
         return redirect()->back();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function changePaymentStatus(Order $order, $order_status, $payment_status)
+    {
+        $order->status = $order_status;
+        $order->payment_status = $payment_status;
+        $order->update();
+        return redirect()->route('Orders');
+    }
+
+    public function acceptOrder(Order $order)
+    {
+        $item_details = collect([]);
+        foreach ($order->order_items as $key => $item) {
+            $arr = collect([]);
+            $arr->put('id', $item->product->id);
+            $arr->put('price', $item->product->price);
+            $arr->put('quantity', $item->quantity);
+            $arr->put('name', $item->product->name);
+            $item_details->push($arr);
+        }
+
+        $shipping_cost = collect([]);
+        $shipping_cost->put('id', 'Ongkir');
+        $shipping_cost->put('name', 'Biaya Pengiriman');
+        $shipping_cost->put('quantity', 1);
+
+        if ($item_details->sum('quantity') >= 20) {
+            $shipping_cost->put('price', 5000);
+        } else {
+            $shipping_cost->put('price', 20000);
+        }
+
+        $item_details->push($shipping_cost);
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => "TL" . $order->id . "-" . now()->timestamp,
+                'gross_amount' => $order->total_price,
+            ],
+            'item_details' => $item_details,
+            'customer_details' => [
+                'first_name' => $order->user->name,
+                'email' => $order->user->email,
+                "shipping_address" => [
+                    "first_name" => $order->user->name,
+                    "address" => $order->address,
+                ]
+            ]
+        ];
+
+        $midtrans = new CreateSnapTokenService($params);
+        $snapToken = $midtrans->getSnapToken();
+
+        $order->snap_token = $snapToken;
+        $order->status = 'accepted';
+        $order->update();
+
+        return redirect()->back();
+    }
+
     public function create(Request $request)
     {
         if ($request->session()->exists('cart_items')) {
@@ -60,12 +115,6 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreOrderRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreOrderRequest $request)
     {
         $this->validate($request, [
@@ -95,6 +144,7 @@ class OrderController extends Controller
             'total_price' => $total_price,
             'address' => $full_address,
             'status' => "waiting",
+            'payment_status' => 1
         ]);
 
         foreach ($cart_items as $item) {
@@ -115,50 +165,21 @@ class OrderController extends Controller
         return redirect()->route('Orders');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
+    public function payment(Order $order)
     {
-        //
+        if ($order->payment_status != 1) {
+            return redirect()->route('Orders');
+        }
+        $total_price = 0;
+        foreach ($order->order_items as $key => $item) {
+            $sub = $item->quantity * $item->product->price;
+            $total_price += $sub;
+        }
+        return view('pages.payment')
+            ->with('order', $order)
+            ->with('total_price', $total_price);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOrderRequest  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOrderRequest $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
 
     public function myOrder()
     {
@@ -176,13 +197,10 @@ class OrderController extends Controller
         $month = explode(',', $request->monthyear)[0];
         $year = explode(',', $request->monthyear)[1];
 
-        $orders = Order::where('status', 'done')
-            ->whereRaw('YEAR(created_at) = ' . $year)
-            ->whereRaw('MONTH(created_at) = ' . $month)
-            ->get();
-
         $date = Carbon::createFromFormat('mY', sprintf("%02d", $month) . $year)->translatedFormat('F Y');
-        $pdf = PDF::loadView('pages.admin.generateReport', ['orders' => $orders, 'date' => $date]);
-        return $pdf->stream('Laporan-Pendapatan-Telurku.pdf');
+        return Excel::download(new OrdersExport($year, $month), 'Laporan Pendapatan Andri Jaya Telor ' . $date . '.xlsx');
+
+        // $pdf = PDF::loadView('pages.admin.generateReport', ['orders' => $orders, 'date' => $date]);
+        // return $pdf->stream('Laporan-Pendapatan-Telurku.pdf');
     }
 }
