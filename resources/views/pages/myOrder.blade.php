@@ -10,7 +10,7 @@
                         <p class="mb-2">Tanggal</p>
                         <h5>{{ Carbon\Carbon::parse($order->created_at)->translatedFormat('d F Y') }}
                             <span class="ms-1 p-1 rounded-1 bg-success" style="--bs-bg-opacity: .3;">
-                                {{ Carbon\Carbon::parse($order->created_at)->translatedFormat('h:m') }}
+                                {{ Carbon\Carbon::parse($order->created_at)->addHours(7)->translatedFormat('H:i:s') }}
                             </span>
                         </h5>
                     </div>

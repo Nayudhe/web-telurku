@@ -10,6 +10,26 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     @yield('head')
     <title>Telurku</title>
+
+    <style>
+        #cart-icon:after {
+            content: attr(value);
+            font-size: 12px;
+            background: red;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px;
+            box-sizing: content-box;
+            width: 15px;
+            height: 15px;
+            position: relative;
+            left: -8px;
+            top: -10px;
+            opacity: 0.9;
+        }
+    </style>
 </head>
 
 <body>

@@ -13,19 +13,19 @@
         <div class="carousel-inner rounded-3">
             <div class="carousel-item active">
                 <div style="height: 450px; width: 100%">
-                    <img src="{{ asset('img/egg-default.jpg') }}" class="d-block h-100 w-100" alt="..."
+                    <img src="{{ asset('img/peternakan.jpeg') }}" class="d-block h-100 w-100" alt="..."
                         style="object-fit: cover; object-position: center">
                 </div>
             </div>
             <div class="carousel-item">
                 <div style="height: 450px; width: 100%">
-                    <img src="{{ asset('img/egg2.jpg') }}" class="d-block h-100 w-100" alt="..."
+                    <img src="{{ asset('img/telur.jpeg') }}" class="d-block h-100 w-100" alt="..."
                         style="object-fit: cover; object-position: center">
                 </div>
             </div>
             <div class="carousel-item">
                 <div style="height: 450px; width: 100%">
-                    <img src="{{ asset('img/egg3.jpg') }}" class="d-block h-100 w-100" alt="..."
+                    <img src="{{ asset('img/peternakan2.jpeg') }}" class="d-block h-100 w-100" alt="..."
                         style="object-fit: cover; object-position: center">
                 </div>
             </div>
@@ -54,11 +54,11 @@
             <div class="col-12 col-md-5 mb-4 mb-md-0">
                 <div style="height: 300px">
                     <img class="h-100 w-100" style="object-fit: cover; object-position: center"
-                        src="{{ asset('img/egg4.jpg') }}" alt="...">
+                        src="{{ asset('img/peternakan2.jpeg') }}" alt="...">
                 </div>
             </div>
             <div class="col">
-                <p style="font-size: 18px; text-align: justify">Andri Jaya Telur merupakan usaha dagang (UD) merupakan
+                <p style="font-size: 18px; text-align: justify">Andri Jaya Telor merupakan usaha dagang (UD) merupakan
                     peternakan telur ayam negeri yang telah berkomitmen untuk memberikan produk berkualitas tinggi kepada
                     pelanggan kami sejak awal berdiri. Kami
                     menghargai kepercayaan pelanggan kami dan berkomitmen untuk terus meningkatkan proses produksi kami demi

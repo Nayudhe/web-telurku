@@ -18,7 +18,8 @@ class OrderItemFactory extends Factory
         $order = Order::factory()->create();
         return [
             'order_id' => $order->id,
-            'product_id' => Product::factory(),
+            // 'product_id' => $this->faker->numberBetween(1, 4),
+            'product_id' => 1,
             'quantity' => $this->faker->numberBetween(1, 20),
             'created_at' => $order->created_at,
         ];

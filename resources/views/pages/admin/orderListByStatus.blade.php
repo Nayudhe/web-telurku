@@ -58,7 +58,8 @@
                                     </ul>
                                 </td>
                                 <td>Rp {{ number_format($order->total_price, 0, '', '.') }}</td>
-                                <td>{{ Carbon\Carbon::parse($order->created_at)->translatedFormat('d F Y h:m') }}</td>
+                                <td>{{ Carbon\Carbon::parse($order->created_at)->addHours(7)->translatedFormat('d F Y H:i') }}
+                                </td>
                                 <td>
                                     @if ($order->status == 'waiting')
                                         <form action="{{ route('Admin.AcceptOrder', [$order->id, 'accepted']) }}"

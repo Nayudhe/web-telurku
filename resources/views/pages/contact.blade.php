@@ -2,8 +2,8 @@
 
 @section('body')
     <div>
-        <h1>Kontak Kami</h1>
-        <p>Hubungi kami melalui kontak di bawah ini jika ada pertanyaan ataupun kritik dan saran.</p>
+        <h1>Kotak Saran</h1>
+        <p style="font-size: 18px;">Hubungi kami melalui kontak di bawah ini jika ada pertanyaan ataupun kritik dan saran.</p>
 
         <div class="mt-5 row justify-content-center">
             <div class="col-12 col-md-5">
@@ -11,13 +11,15 @@
                     <div class="d-flex flex-column">
                         <h5 style="color: #508bfc"><i class="bi bi-geo-fill"></i></h5>
                         <h5 class="fw-normal" style="font-size: 18px">Alamat</h5>
-                        <h5>Kediri</h5>
+                        <h5 class="mb-3">Jl. Mawar RT 002/RW 001 Ds. Sukomoro, Kecamatan Papar, Kabupaten Kediri</h5>
+                        <a href="https://maps.app.goo.gl/pLFSoGfwCGHztBkn8" target="_blank" class="btn btn-primary">Buka di Google Maps</a>
                     </div>
                     <hr>
                     <div class="d-flex flex-column">
                         <h5 style="color: #508bfc"><i class="bi bi-telephone-fill"></i></h5>
                         <h5 class="fw-normal" style="font-size: 18px">No. Telepon</h5>
-                        <h5>0858-5497-9026</h5>
+                        <h5 class="mb-3">0858-5497-9026</h5>
+                        <a href="https://wa.me/6285854879026" target="_blank" class="btn btn-primary">Hubungi via Whatsapp</a>
                     </div>
                     <hr>
                     <div class="d-flex flex-column">
@@ -36,7 +38,7 @@
                 @endif
                 @if (session('status'))
                     <div class="alert alert-success">
-                        {{ session('status') }}sdadsad
+                        {{ session('status') }}
                     </div>
                 @endif
                 <form action="{{ route('SendMessage') }}" method="POST">

@@ -17,7 +17,8 @@ class CartItemFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'product_id' => Product::factory(),
+            // 'product_id' => $this->faker->numberBetween(1, 4),
+            'product_id' => 1,
             'quantity' => $this->faker->numberBetween(1, 10),
             'total_price' => function (array $attributes) {
                 return $attributes['quantity'] * Product::find($attributes['product_id'])->price;

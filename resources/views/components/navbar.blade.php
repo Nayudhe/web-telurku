@@ -32,8 +32,14 @@
                     <div>
                         <ul class="navbar-nav mb-lg-0">
                             <li class="nav-item me-2">
-                                <a class="nav-link text-light" href="{{ route('Cart.View') }}"><i
-                                        class="bi bi-cart h3"></i></a>
+                                <a class="nav-link text-light" href="{{ route('Cart.View') }}">
+                                    @if (auth()->user()->cart_items()->count() > 0)
+                                        <i id="cart-icon" value={{ auth()->user()->cart_items()->count() }}
+                                            class="bi bi-cart h3"></i>
+                                    @else
+                                        <i class="bi bi-cart h3"></i>
+                                    @endif
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-light" href="#" role="button" data-bs-toggle="dropdown"
@@ -42,7 +48,8 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     @if (auth()->user()->is_admin())
-                                    <li><a class="dropdown-item" href="{{ route('Admin.Dashboard') }}">Admin Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('Admin.Dashboard') }}">Admin
+                                                Dashboard</a></li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{ route('Profile') }}">My Profile</a></li>
                                     <li><a class="dropdown-item" href="{{ route('Orders') }}">My Order</a></li>
