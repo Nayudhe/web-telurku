@@ -22,21 +22,21 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::paginate(10);
-        return view('pages.admin.orderList')->with('orders', $orders);
+        return view('pages.admin.order-list')->with('orders', $orders);
     }
 
-    public function byStatus($status)
+    public function get_order_by_status($status)
     {
         if ($status != 'waiting' && $status != 'accepted' && $status != 'done' && $status != 'canceled') {
             return redirect()->back();
         }
         $orders = Order::where('status', $status)->paginate(10);
-        return view('pages.admin.orderListByStatus')
+        return view('pages.admin.order-list-by-status')
             ->with('orders', $orders)
             ->with('status', $status);
     }
 
-    public function changeOrderStatus(Order $order, $status)
+    public function update_order_status(Order $order, $status)
     {
         if ($order->status != 'accepted' || $order->status != 'done') {
             $order->status = $status;
@@ -45,7 +45,7 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    public function changePaymentStatus(Order $order, $order_status, $payment_status)
+    public function update_payment_status(Order $order, $order_status, $payment_status)
     {
         $order->status = $order_status;
         $order->payment_status = $payment_status;
@@ -53,7 +53,7 @@ class OrderController extends Controller
         return redirect()->route('Orders');
     }
 
-    public function acceptOrder(Order $order)
+    public function accept_order(Order $order)
     {
         $item_details = collect([]);
         foreach ($order->order_items as $key => $item) {
@@ -151,6 +151,7 @@ class OrderController extends Controller
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $item->product->id,
+                'product_name' => $item->product->name,
                 'quantity' => $item->quantity,
             ]);
 
@@ -181,14 +182,14 @@ class OrderController extends Controller
     }
 
 
-    public function myOrder()
+    public function my_order()
     {
         $orders = Order::where('user_id', Auth::user()->id)->get();
 
-        return view('pages.myOrder')->with('orders', $orders);
+        return view('pages.my-order')->with('orders', $orders);
     }
 
-    public function printReport(Request $request)
+    public function print_report(Request $request)
     {
         $this->validate($request, [
             'monthyear' => 'required'
@@ -196,11 +197,15 @@ class OrderController extends Controller
 
         $month = explode(',', $request->monthyear)[0];
         $year = explode(',', $request->monthyear)[1];
-
         $date = Carbon::createFromFormat('mY', sprintf("%02d", $month) . $year)->translatedFormat('F Y');
-        return Excel::download(new OrdersExport($year, $month), 'Laporan Pendapatan Andri Jaya Telor ' . $date . '.xlsx');
 
-        // $pdf = PDF::loadView('pages.admin.generateReport', ['orders' => $orders, 'date' => $date]);
-        // return $pdf->stream('Laporan-Pendapatan-Telurku.pdf');
+        $orders = Order::where('status', 'done')
+            ->whereRaw('YEAR(created_at) = ' . $year)
+            ->whereRaw('MONTH(created_at) = ' . $month)
+            ->get();
+
+        $pdf = PDF::loadView('pages.admin.generate-report', ['orders' => $orders, 'date' => $date]);
+        return $pdf->stream('Laporan-Pendapatan-Telurku.pdf');
+        // return Excel::download(new OrdersExport($year, $month), 'Laporan Pendapatan Andri Jaya Telor ' . $date . '.xlsx');
     }
 }

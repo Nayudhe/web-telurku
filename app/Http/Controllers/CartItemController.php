@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CartItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = Auth::user();
@@ -24,22 +19,6 @@ class CartItemController extends Controller
         return view('pages.cart')->with('cart_items', $cart_items);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCartItemRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreCartItemRequest $request)
     {
         $this->validate($request, [
@@ -68,50 +47,21 @@ class CartItemController extends Controller
         $this->validate($request, [
             'cart_item_id' => 'required'
         ]);
+
+        $cart_items = CartItem::whereIn('id', $request->cart_item_id)->get();
+        $product_ids = $cart_items->pluck('product_id')->toArray();
+        $products = Product::whereIn('id', $product_ids)->get();
+
+        foreach ($products as $item) {
+            $qty = $cart_items->where('product_id', $item->id)->first()->quantity;
+            if ($item->stock < $qty) {
+                return redirect()->back()->with('stock-error', 'Stok produk tidak mencukupi!');
+            }
+        }
         $request->session()->put('cart_items', $request->cart_item_id);
         return redirect()->route('Checkout.View');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CartItem  $cartItem
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CartItem $cartItem)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CartItem  $cartItem
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CartItem $cartItem)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCartItemRequest  $request
-     * @param  \App\Models\CartItem  $cartItem
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCartItemRequest $request, CartItem $cartItem)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CartItem  $cartItem
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(CartItem $cartItem)
     {
         try {

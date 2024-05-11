@@ -19,6 +19,10 @@
             @endif
         </div>
     @endif
+    @if (\Session::has('stock-error'))
+        <div class="alert alert-danger mt-4"> {{ \Session::get('stock-error') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-12 col-lg-8 order-2 order-lg-1">
             @if (count($cart_items) > 0)
@@ -42,6 +46,12 @@
                                         <div>
                                             <h5 class="mb-2">{{ $item->product->name }}</h5>
                                             <p class="badge bg-secondary mb-0">{{ $item->quantity }} krat</p>
+
+                                            @if ($item->product->stock < $item->quantity)
+                                                <p class="badge bg-danger mb-0">Stok tidak mencukupi</p>
+                                                <p class="badge bg-danger mb-0">Sisa stok: {{ $item->product->stock }}
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

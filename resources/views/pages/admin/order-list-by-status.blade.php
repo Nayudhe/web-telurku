@@ -1,4 +1,4 @@
-@extends('layouts.adminDashboard')
+@extends('layouts.admin-dashboard')
 
 @section('content')
     <!-- Page Heading -->
@@ -53,7 +53,16 @@
                                 <td>
                                     <ul>
                                         @foreach ($order->order_items as $item)
-                                            <li>{{ $item->product->name }} ({{ $item->quantity }} krat)</li>
+                                            @if (!is_null($item->product))
+                                                <li>{{ $item->product->name }} ({{ $item->quantity }}
+                                                    krat)
+                                                </li>
+                                            @else
+                                                <li>{{ $item->product_name }} ({{ $item->quantity }}
+                                                    krat)
+                                                    <p class="badge bg-danger text-white">Produk terhapus</p>
+                                                </li>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 </td>
@@ -80,8 +89,9 @@
                                         <form action="{{ route('Admin.StatusOrder', [$order->id, 'waiting']) }}"
                                             method="POST">
                                             @csrf
-                                            <button type="submit" class="btn btn-warning mb-3 w-100">Pindah ke
-                                                menunggu</button>
+                                            -
+                                            {{-- <button type="submit" class="btn btn-warning mb-3 w-100">Pindah ke
+                                                menunggu</button> --}}
                                         </form>
                                     @else
                                         <h5 class="badge bg-success text-white">

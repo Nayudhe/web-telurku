@@ -23,28 +23,28 @@ class DatabaseSeeder extends Seeder
             'price' => 100000,
             'description' => "Telur ayam negeri dengan kualitas terbaik",
             'stock' => 200,
-            'image' => 'default.jpg',
+            'image' => 'egg-default.jpg',
         ]);
         Product::create([
             'name' => "Telur Omega",
             'price' => 180000,
             'description' => "Telur omega dengan kualitas terbaik",
             'stock' => 187,
-            'image' => 'default.jpg',
+            'image' => 'egg-default.jpg',
         ]);
         Product::create([
             'name' => "Telur Ayam Kampung",
             'price' => 140000,
             'description' => "Telur ayam kampung dengan kualitas terbaik",
             'stock' => 178,
-            'image' => 'default.jpg',
+            'image' => 'egg-default.jpg',
         ]);
         Product::create([
             'name' => "Telur Ayam Bebas",
             'price' => 70000,
             'description' => "Telur ayam bebas dengan kualitas terbaik",
             'stock' => 135,
-            'image' => 'default.jpg',
+            'image' => 'egg-default.jpg',
         ]);
 
         $this->call([

@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class AdminDashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $date = Carbon::now();
@@ -48,13 +43,13 @@ class AdminDashboardController extends Controller
         return view('pages.admin.dashboard')->with('data', $data);
     }
 
-    public function userList()
+    public function user_list()
     {
         $users = User::where('role', 'user')->paginate(10);
-        return view('pages.admin.userList')->with('users', $users);
+        return view('pages.admin.user-list')->with('users', $users);
     }
 
-    public function deleteUser(User $user)
+    public function delete_user(User $user)
     {
         try {
             $user->delete();
@@ -64,9 +59,9 @@ class AdminDashboardController extends Controller
         }
     }
 
-    public function messageList()
+    public function message_list()
     {
         $messages = Message::orderBy('created_at', 'desc')->paginate(5);
-        return view('pages.admin.messageList')->with('messages', $messages);
+        return view('pages.admin.message-list')->with('messages', $messages);
     }
 }

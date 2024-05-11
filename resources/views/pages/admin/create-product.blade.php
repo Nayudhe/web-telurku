@@ -1,41 +1,38 @@
-@extends('layouts.adminDashboard')
+@extends('layouts.admin-dashboard')
 
 @section('content')
-    <h1 class="h3 mb-4 text-gray-800">Edit Produk</h1>
+    <h1 class="h3 mb-4 text-gray-800">Tambah Produk</h1>
 
     @if (session('status'))
-        <div class="alert alert-info">
+        <div class="alert alert-success">
             {{ session('status') }}
         </div>
     @endif
 
     <div class="card shadow mb-4 p-4">
-        <form method="POST" action="{{ url('admin-dashboard/edit-product/' . $product->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('admin-dashboard/add-product') }}" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
             <div class="form-group">
                 <label for="nameInput">Nama Produk</label>
-                <input type="text" id="nameInput" name="name" value="{{ $product->name }}" class="form-control">
+                <input type="text" id="nameInput" name="name" class="form-control" value="{{ old('name') }}">
                 @if ($errors->has('name'))
                     <div class="text-start ms-2 mt-2 text-danger fw-semibold">
                         {{ $errors->first('name') }}
                     </div>
                 @endif
             </div>
-
             <div class="form-group">
                 <label for="priceInput">Harga Produk (per krat)</label>
-                <input type="number" id="priceInput" name="price" value="{{ $product->price }}" class="form-control">
+                <input type="number" id="priceInput" name="price" class="form-control" value="{{ old('price') }}">
                 @if ($errors->has('price'))
                     <div class="text-start ms-2 mt-2 text-danger fw-semibold">
                         {{ $errors->first('price') }}
                     </div>
                 @endif
             </div>
-
             <div class="form-group">
                 <label for="descriptionInput">Deskripsi Produk</label>
-                <textarea id="descriptionInput" name="description" class="form-control">{{ $product->description }}"</textarea>
+                <textarea id="descriptionInput" name="description" class="form-control">{{ old('description') }}</textarea>
                 @if ($errors->has('description'))
                     <div class="text-start ms-2 mt-2 text-danger fw-semibold">
                         {{ $errors->first('description') }}
@@ -45,7 +42,8 @@
 
             <div class="form-group">
                 <label for="stockInput">Stok (krat)</label>
-                <input type="number" id="stockInput" name="stock" value="{{ $product->stock }}" class="form-control">
+                <input type="number" id="stockInput" name="stock" class="form-control" value="{{ old('stock') }}"
+                    value="{{ old('email') }}">
                 @if ($errors->has('stock'))
                     <div class="text-start ms-2 mt-2 text-danger fw-semibold">
                         {{ $errors->first('stock') }}
@@ -63,9 +61,11 @@
                 @endif
             </div>
 
-            <button type="submit" class="d-flex btn btn-success mt-4 ml-auto">
-                Update
-            </button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">
+                    Submit
+                </button>
+            </div>
         </form>
     </div>
 @endsection

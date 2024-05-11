@@ -1,4 +1,4 @@
-@extends('layouts.adminDashboard')
+@extends('layouts.admin-dashboard')
 
 @section('content')
     <!-- Page Heading -->

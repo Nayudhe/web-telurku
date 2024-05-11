@@ -20,32 +20,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('Home');
-Route::get('/products', [MainController::class, 'allProducts'])->name('Product.All');
-Route::get('/product/{product}', [MainController::class, 'detailProduct'])->name('Product.Detail');
+Route::get('/products', [MainController::class, 'all_products'])->name('Product.All');
+Route::get('/product/{product}', [MainController::class, 'detail_product'])->name('Product.Detail');
 Route::get('/about', function () {
     return view('pages.about');
 })->name('About');
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('Contact');
-Route::post('/send-message', [MainController::class, 'sendMessage'])->name('SendMessage');
+Route::post('/send-message', [MainController::class, 'send_message'])->name('SendMessage');
 
 // GUEST
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/login', [AuthController::class, 'loginView'])->name('Auth.LoginView');
+    Route::get('/login', [AuthController::class, 'login_view'])->name('Auth.LoginView');
     Route::post('/login', [AuthController::class, 'authenticate'])->name('Auth.Login');
-    Route::get('/register', [AuthController::class, 'registerView'])->name('Auth.RegisterView');
+    Route::get('/register', [AuthController::class, 'register_view'])->name('Auth.RegisterView');
     Route::post('/register', [AuthController::class, 'register'])->name('Auth.Register');
+    Route::get('/forgot-password', [AuthController::class, 'forgot_pass_view'])->name('Auth.ForgotPassView');
+    Route::post('/forgot-password', [AuthController::class, 'forgot_password'])->name('Auth.ForgotPassword');
+    Route::get('/reset-password/{token}',  [AuthController::class, 'reset_pass_view'])->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'reset_password'])->name('password.update');
+
     Route::get('/admin-login', function () {
-        return view('pages.admin.adminLogin');
+        return view('pages.admin.admin-login');
     })->name('Admin.Login');
     Route::post('/admin-login', [AuthController::class, 'authenticate'])->name('Auth.Login');
 });
 
 // AUTH
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/my-orders', [OrderController::class, 'myOrder'])->name('Orders');
-    Route::get('/my-profile',  [MainController::class, 'myProfile'])->name('Profile');
+    Route::get('/my-orders', [OrderController::class, 'my_order'])->name('Orders');
+    Route::get('/my-profile',  [MainController::class, 'my_profile'])->name('Profile');
 
     Route::get('/cart', [CartItemController::class, 'index'])->name('Cart.View');
     Route::post('/cart', [CartItemController::class, 'store'])->name('Cart.Add');
@@ -55,10 +60,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkout', [OrderController::class, 'create'])->name('Checkout.View');
     Route::post('/checkout/order', [OrderController::class, 'store'])->name('Checkout.Order');
     Route::post('/checkout/payment/{order}', [OrderController::class, 'payment'])->name('Checkout.Payment');
-    Route::post('/checkout/status/{order}/{order_status}/{payment_status}', [OrderController::class, 'changePaymentStatus'])->name('Checkout.Status');
+    Route::post('/checkout/status/{order}/{order_status}/{payment_status}', [OrderController::class, 'update_payment_status'])->name('Checkout.Status');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('Auth.Logout');
 });
+
+Route::get('/test', [ProductController::class, 'testing']);
 
 
 // ADMIN DASHBOARD
@@ -74,12 +81,12 @@ Route::group(['prefix' => 'admin-dashboard', 'middleware' => 'isAdmin'], functio
     Route::delete('/product/{product}',  [ProductController::class, 'destroy'])->name('Admin.DeleteProduct');
 
     Route::get('/orders',  [OrderController::class, 'index'])->name('Admin.Orders');
-    Route::get('/orders/{status}',  [OrderController::class, 'byStatus'])->name('Admin.OrdersByStatus');
-    Route::post('/order/accept/{order}',  [OrderController::class, 'acceptOrder'])->name('Admin.AcceptOrder');
-    Route::post('/order/update/{order}/{status}',  [OrderController::class, 'changeOrderStatus'])->name('Admin.StatusOrder');
-    Route::post('/orders/print', [OrderController::class, 'printReport'])->name('Admin.PrintReport');
+    Route::get('/orders/{status}',  [OrderController::class, 'get_order_by_status'])->name('Admin.OrdersByStatus');
+    Route::post('/order/accept/{order}',  [OrderController::class, 'accept_order'])->name('Admin.AcceptOrder');
+    Route::post('/order/update/{order}/{status}',  [OrderController::class, 'update_order_status'])->name('Admin.StatusOrder');
+    Route::post('/orders/print', [OrderController::class, 'print_report'])->name('Admin.PrintReport');
 
-    Route::get('/messages',  [AdminDashboardController::class, 'messageList'])->name('Admin.Messages');
-    Route::get('/users',  [AdminDashboardController::class, 'userList'])->name('Admin.Users');
-    Route::delete('/user/{user}',  [AdminDashboardController::class, 'deleteUser'])->name('Admin.DeleteUser');
+    Route::get('/messages',  [AdminDashboardController::class, 'message_list'])->name('Admin.Messages');
+    Route::get('/users',  [AdminDashboardController::class, 'user_list'])->name('Admin.Users');
+    Route::delete('/user/{user}',  [AdminDashboardController::class, 'delete_user'])->name('Admin.DeleteUser');
 });

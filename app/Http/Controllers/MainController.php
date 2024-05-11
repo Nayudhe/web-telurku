@@ -19,24 +19,24 @@ class MainController extends Controller
         return view('pages.home')->with('products', $products);
     }
 
-    public function allProducts()
+    public function all_products()
     {
         $products = Product::paginate(12);
         return view('pages.products')->with('products', $products);
     }
 
-    public function detailProduct(Product $product)
+    public function detail_product(Product $product)
     {
-        return view('pages.detailProduct')->with('product', $product);
+        return view('pages.detail-product')->with('product', $product);
     }
 
-    public function myProfile()
+    public function my_profile()
     {
         $user = Auth::user();
-        return view('pages.myProfile')->with('user', $user);
+        return view('pages.my-profile')->with('user', $user);
     }
 
-    public function sendMessage(Request $request)
+    public function send_message(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',

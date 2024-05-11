@@ -29,6 +29,10 @@
                     </li>
                 </ul>
             </div>
+            @if (\Session::has('success'))
+                <div class="alert alert-success mt-4"> {{ \Session::get('success') }}
+                </div>
+            @endif
             <p>Masukkan ke keranjang:</p>
             <form action="{{ route('Cart.Add') }}" method="POST">
                 @csrf
@@ -59,10 +63,6 @@
                     @else
                         Mohon maaf terjadi kesalahan, silakan ulangi kembali.
                     @endif
-                </div>
-            @endif
-            @if (\Session::has('success'))
-                <div class="alert alert-success mt-4"> {{ \Session::get('success') }}
                 </div>
             @endif
         </div>

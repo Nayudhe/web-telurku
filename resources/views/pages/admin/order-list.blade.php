@@ -1,4 +1,4 @@
-@extends('layouts.adminDashboard')
+@extends('layouts.admin-dashboard')
 
 @section('content')
     <!-- Page Heading -->
@@ -36,7 +36,7 @@
                                 <td>
                                     <ul>
                                         @foreach ($order->order_items as $item)
-                                            <li>{{ $item->product->name }} ({{ $item->quantity }} krat)</li>
+                                            <li>{{ $item->product_name }} ({{ $item->quantity }} krat)</li>
                                         @endforeach
                                     </ul>
 

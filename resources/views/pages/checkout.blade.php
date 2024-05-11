@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 @endforeach
-                <div class="me-2 d-flex flex-column align-items-end">
+                <div class="mb-4 me-2 d-flex flex-column align-items-end">
                     <h5>Subtotal: Rp {{ number_format($cart_items->sum('total_price'), 0, '', '.') }}</h5>
                     <h5>Biaya pengiriman: Rp {{ number_format(20000, 0, '', '.') }}</h5>
                     @if ($cart_items->sum('quantity') >= 20)
@@ -86,6 +86,13 @@
                     @else
                         <h5>Total: Rp {{ number_format($cart_items->sum('total_price') + 20000, 0, '', '.') }}</h5>
                     @endif
+                </div>
+                <div class="alert alert-info mb-3">
+                    <h5>Informasi</h5>
+                    <p>Produk akan mulai dikirim 1 sampai 3 hari setelah pembayaran
+                        <b>({{ Carbon\Carbon::now()->addDays(1)->translatedFormat('d F Y') }} -
+                            {{ Carbon\Carbon::now()->addDays(3)->translatedFormat('d F Y') }})</b>
+                    </p>
                 </div>
             </div>
         </div>

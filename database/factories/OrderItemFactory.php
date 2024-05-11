@@ -20,6 +20,7 @@ class OrderItemFactory extends Factory
             'order_id' => $order->id,
             // 'product_id' => $this->faker->numberBetween(1, 4),
             'product_id' => 1,
+            'product_name' => 'Telur Ayam Negeri',
             'quantity' => $this->faker->numberBetween(1, 20),
             'created_at' => $order->created_at,
         ];

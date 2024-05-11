@@ -1,4 +1,4 @@
-@extends('layouts.adminDashboard')
+@extends('layouts.admin-dashboard')
 
 @section('content')
     <h1 class="h3 mb-4 text-gray-800">Pesan Masuk</h1>
