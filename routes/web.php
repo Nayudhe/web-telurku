@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin-dashboard', 'middleware' => 'isAdmin'], functio
     Route::get('/orders',  [OrderController::class, 'index'])->name('Admin.Orders');
     Route::get('/orders/{status}',  [OrderController::class, 'get_order_by_status'])->name('Admin.OrdersByStatus');
     Route::post('/order/accept/{order}',  [OrderController::class, 'accept_order'])->name('Admin.AcceptOrder');
+    Route::post('/order/update/{order}',  [OrderController::class, 'cancel_order'])->name('Admin.CancelOrder');
     Route::post('/order/update/{order}/{status}',  [OrderController::class, 'update_order_status'])->name('Admin.StatusOrder');
     Route::post('/orders/print', [OrderController::class, 'print_report'])->name('Admin.PrintReport');
 

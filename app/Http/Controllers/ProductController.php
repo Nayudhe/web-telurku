@@ -112,21 +112,13 @@ class ProductController extends Controller
 
     public function testing()
     {
-        $cart_items = CartItem::get();
-        $product_ids = $cart_items->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $product_ids)->get();
+        $order = Order::find(7);
+        foreach ($order->order_items as $item) {
+            $product = Product::find($item->product_id);
+            $product->stock = $product->stock + $item->quantity;
+            $product->update();
 
-        foreach ($products as $item) {
-            $qty = $cart_items->where('product_id', $item->id)->first()->quantity;
-            dump("stok => ", $item->stock);
-            dump("produk id => ", $item->id);
-            dump("QTY => ", $qty);
-            dump("=========================================================");
-            if ($item->stock < $qty) {
-                dump("gacukup");
-            } else {
-                dd("nais");
-            }
+            dump($product);
         }
     }
 }

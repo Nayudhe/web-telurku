@@ -76,8 +76,7 @@
                                             @csrf
                                             <button type="submit" class="btn btn-success mb-3 w-100">Terima</button>
                                         </form>
-                                        <form action="{{ route('Admin.StatusOrder', [$order->id, 'canceled']) }}"
-                                            method="POST">
+                                        <form action="{{ route('Admin.CancelOrder', $order->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-danger w-100">Batalkan</button>
                                         </form>

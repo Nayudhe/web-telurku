@@ -45,6 +45,19 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
+    public function cancel_order(Order $order)
+    {
+        foreach ($order->order_items as $item) {
+            $product = Product::find($item->product_id);
+            $product->stock = $product->stock + $item->quantity;
+            $product->update();
+        }
+        $order->status = 'canceled';
+        $order->update();
+
+        return redirect()->back();
+    }
+
     public function update_payment_status(Order $order, $order_status, $payment_status)
     {
         $order->status = $order_status;
@@ -180,7 +193,6 @@ class OrderController extends Controller
             ->with('order', $order)
             ->with('total_price', $total_price);
     }
-
 
     public function my_order()
     {
