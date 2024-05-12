@@ -1,15 +1,14 @@
 <footer class="mt-auto">
     <div class="container-fluid p-4 text-light" style="background-color: #508bfc">
-        <div class="row justify-content-center text-center text-lg-start align-items-center">
+        <div class="row justify-content-center text-center text-lg-start">
             <div class="col-12 col-lg-3 pe-md-5">
-
                 <h2><i class="bi bi-egg-fill"></i> Telurku</h2>
                 <p class="mb-4 mb-lg-0">Kami berkomitmen untuk terus
                     meningkatkan proses produksi kami demi memberikan produk terbaik.</p>
             </div>
             <div class="col-lg-2">
                 <h5>Alamat</h5>
-                <p>Kediri</p>
+                <p>Jl. Mawar RT 002/RW 001 Ds. Sukomoro, Kecamatan Papar, Kabupaten Kediri</p>
             </div>
             <div class="col-lg-2">
                 <h5>Telepon</h5>
@@ -17,7 +16,7 @@
             </div>
             <div class="col-lg-3 col-xl-2">
                 <h5>Email</h5>
-                <p>andrijayatelur@gmail.com</p>
+                <p>andrijayatelor@gmail.com</p>
             </div>
         </div>
 

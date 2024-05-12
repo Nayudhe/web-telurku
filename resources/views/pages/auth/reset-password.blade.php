@@ -19,7 +19,7 @@
                         <div class="row g-0">
                             <div class="col d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
-                                    <form method="POST" action="{{ route('Auth.Login') }}">
+                                    <form method="POST" action="{{ route('password.reset') }}">
                                         @csrf
                                         <div class="d-flex flex-column align-items-center">
                                             <h3 class="fw-bold mb-4">Reset Password</h3>

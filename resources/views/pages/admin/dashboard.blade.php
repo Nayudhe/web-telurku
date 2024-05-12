@@ -152,7 +152,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan (.xlsx)
+                            <i class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan (PDF)
                         </button>
                     </form>
                 </div>

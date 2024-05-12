@@ -13,13 +13,16 @@
 <body>
     <section class="min-vh-100 d-flex align-items-center" style="background-color: #508bfc;">
         <div class="container py-5 px-4 h-100">
-            @if ($status)
-                <div class="alert alert-success">
-                    {{ $status }}
+            @if (\Session::has('status'))
+                <div class="alert alert-success mb-4"> {{ \Session::get('status') }}
                 </div>
             @endif
             @if ($errors->any())
-                {!! implode('', $errors->all('<div>:message</div>')) !!}
+                <div class="alert alert-danger">
+                    <ol>
+                        {!! implode('', $errors->all('<li>:message</li>')) !!}
+                    </ol>
+                </div>
             @endif
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-6">
