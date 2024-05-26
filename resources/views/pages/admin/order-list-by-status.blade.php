@@ -4,6 +4,47 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Daftar Pesanan</h1>
 
+    <div class="card shadow p-4 mb-4">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <a href="{{ route('Admin.OrdersByStatus', 'waiting') }}"
+                    class="btn btn-primary inline-block pb-3 {{ Route::current()->parameters['status'] === 'waiting' ? 'btn-success' : '' }}"
+                    style="width: 100%">
+                    <i class="bi bi-clock-fill" style="font-size: 36px"></i>
+                    <br>
+                    <span style="font-size: 15px; display:inline-block; margin-top: 10px">Menunggu</span>
+                </a>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <a href="{{ route('Admin.OrdersByStatus', 'accepted') }}"
+                    class="btn btn-primary inline-block pb-3 {{ Route::current()->parameters['status'] === 'accepted' ? 'btn-success' : '' }}"
+                    style="width: 100%">
+                    <i class="bi bi-arrow-repeat" style="font-size: 36px"></i>
+                    <br>
+                    <span style="font-size: 15px; display:inline-block; margin-top: 10px">Diproses</span>
+                </a>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <a href="{{ route('Admin.OrdersByStatus', 'done') }}"
+                    class="btn btn-primary inline-block pb-3 {{ Route::current()->parameters['status'] === 'done' ? 'btn-success' : '' }}"
+                    style="width: 100%">
+                    <i class="bi bi-check-circle-fill" style="font-size: 36px"></i>
+                    <br>
+                    <span style="font-size: 15px; display:inline-block; margin-top: 10px">Selesai</span>
+                </a>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <a href="{{ route('Admin.OrdersByStatus', 'canceled') }}"
+                    class="btn btn-primary inline-block pb-3 {{ Route::current()->parameters['status'] === 'canceled' ? 'btn-success' : '' }}"
+                    style="width: 100%">
+                    <i class="bi bi-x-circle-fill" style="font-size: 36px"></i>
+                    <br>
+                    <span style="font-size: 15px; display:inline-block; margin-top: 10px">Dibatalkan</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}

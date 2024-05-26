@@ -63,12 +63,11 @@
     </li>
 
     <li class="nav-item {{ Route::current()->getName() == 'Admin.OrdersByStatus' ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-            aria-expanded="true" aria-controls="collapseOrders">
+        <a class="nav-link" href="{{ route('Admin.OrdersByStatus', 'waiting') }}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Pesanan Masuk</span>
         </a>
-        <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
+        {{-- <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Status:</h6>
                 <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'waiting') }}">Menunggu</a>
@@ -76,7 +75,7 @@
                 <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'done') }}">Selesai</a>
                 <a class="collapse-item" href="{{ route('Admin.OrdersByStatus', 'canceled') }}">Dibatalkan</a>
             </div>
-        </div>
+        </div> --}}
     </li>
 
     <!-- Divider -->

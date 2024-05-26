@@ -30,4 +30,6 @@
     <p style="text-align: right">
         Total: Rp {{ number_format($orders->sum('total_price'), 0, '', '.') }}
     </p>
+
+    <p>Penanggung jawab: {{ auth()->user()->name }}</p>
 </div>
